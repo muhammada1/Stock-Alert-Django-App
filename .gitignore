@@ -1,0 +1,5 @@
+db.sqlite3
+trash.txt
+stockalert/settings.py
+theme/templates/trash.html
+.vscode

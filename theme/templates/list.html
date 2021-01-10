@@ -1,0 +1,52 @@
+{% extends "templates/base.html" %}
+{% block title %}View List{% endblock %}
+{% load static %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<body>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
+        <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-md">
+        <h1 class="text-4xl ..."><b>{{ls.name}}</b></h1>
+        <div class="mb-4">
+            <div class="flex mb-4 items-center">
+            <ul>
+                <li>
+                    <div class="grid gap-x-64 gap-y-4 grid-cols-2">
+                        <div><b><h1>Stock</h1></b></div>
+                        <div><b><h1>Target</h1></b></div>
+                    </div>
+                </li>
+                {% for stock in ls.stock_set.all %}
+                    {% if stock.complete == True %}
+                        <li>
+                            <div class="grid gap-x-64 gap-y-4 grid-cols-2">
+                                <div><input type="checkbox", value="clicked", name="c{{stock.id}}"> {{stock.text}}</div>
+                                <div>{{stock.target}}</div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div class="grid gap-x-64 gap-y-4 grid-cols-2">
+                                <div><input type="checkbox", value="clicked", name="c{{stock.id}}"> {{stock.text}}</div>
+                                <div>{{stock.target}}</div>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            </div>
+            <input type="text", name="new", class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Stock Input">
+            <input type="text", name="target", class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Target Input">
+            <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" type="submit", name="save", value="save">Delete</button>
+            <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" type="submit", name="newItem", value="newItem">Add Item</button>
+        </div>
+        </div>
+        </div>
+    </form>
+</body>
+{% endblock %}
